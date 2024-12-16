@@ -1,0 +1,83 @@
+---
+echo: false
+warning: false
+---
+
+```{r}
+library(surveydown)
+library(shiny)
+library(DT)
+```
+
+::: {#welcome .sd-page}
+# Welcome to our survey!
+
+Some text about the workflow here...
+
+```{r q-indOrRec}
+sd_question(
+  type  = 'mc_buttons',
+  id    = 'type',
+  label = "Do you want to register publication metadata, or an indicator  presented within an already registered publication?",
+  option = c(
+    'Publication'    = 'pub',
+    'Indicator' = 'ind'
+  )
+)
+```
+
+```{r}
+sd_next()
+```
+:::
+
+::: {#pubPage .sd-page}
+## Register a publication
+
+Before processing individual indicators, you first need to register meta data about the publication. Later you will link the indicator registration form to this publication record.
+
+```{r q-thirdpage}
+sd_question(
+  type  = 'numeric',
+  id    = 'age',
+  label = "What's your age?"
+)
+
+
+
+sd_next(next_page = 'end')
+
+```
+:::
+
+::: {#indPage .sd-page}
+Register an indicator
+
+Link the indicator to a publication by first finding the publication in the datatable below, and copying the session_id into the text field.
+
+<!--# This is suboptimal, but updateSelectInput did nt work, nor did adding slectInput (or pickerInput) as UI object from the server. If I did that, the picker input did not register as a question on suprabase. -->
+
+```{r q-link}
+sd_question(
+  type = "text",
+  id = 'select_pub4',
+  label = "Paste publication ID"
+)
+
+uiOutput('mydata_X')
+```
+
+```{r}
+sd_next(next_page = 'end')
+```
+:::
+
+::: {#end .sd-page}
+## End
+
+This it the last page in the survey.
+
+```{r}
+sd_close("Exit Survey")
+```
+:::

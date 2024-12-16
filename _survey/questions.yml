@@ -1,0 +1,16 @@
+# ! JUST READ - don't change the content of this file
+# Question structure extracted from survey.html
+type:
+  type: mc_buttons
+  label: Do you want to register publication metadata, or an indicator  presented
+    within an already registered publication?
+  options:
+    Publication: pub
+    Indicator: ind
+age:
+  type: numeric
+  label: What’s your age?
+select_pub4:
+  type: text
+  label: Paste publication ID
+
